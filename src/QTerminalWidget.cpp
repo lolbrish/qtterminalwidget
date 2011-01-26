@@ -11,8 +11,16 @@
 namespace QtTerm {
 
 QTerminalWidget::QTerminalWidget(QWidget* parent) 
-  : QWidget(parent) 
+    : QWidget(parent) 
+    , term(0)
+    , width(0)
+    , height(0)
+    , logctx(0)
+    , ldisc(0)
+    , exited(0)
 {
+    memset(&cfg, 0, sizeof(Config));
+    memset(&ucsdata, 0, sizeof(unicode_data));
   this->setMinimumWidth(10 * 80);
   this->setMinimumHeight(19 * 25);
 

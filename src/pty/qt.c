@@ -3,19 +3,10 @@
 
 #include "putty.h"
 #include "terminal.h"
+#include "../QTerminalWidget.h"
 
 #include <assert.h>
 #include <signal.h>
-
-struct gui_data {
-    Terminal *term;
-    Config cfg;
-    int width, height;
-    struct unicode_data ucsdata;
-    void *logctx;
-    void *ldisc;
-    int exited;
-};
 
 int from_backend(void *frontend, int is_stderr, const char *data, int len)
 {
@@ -47,11 +38,7 @@ void set_sbar(void *frontend, int total, int start, int page)
 int pt_main(int argc, char **argv)
 {
     extern int cfgbox(Config *cfg);
-    struct gui_data *inst;
-
-    // TODO: init gui_data...
-    inst = snew(struct gui_data);
-    memset(inst, 0, sizeof(*inst));
+    QTerminalWidget* inst = new QtTerm::QTerminalWidget();
 
     // defer any child exit handling until we're ready to deal with
     // it
