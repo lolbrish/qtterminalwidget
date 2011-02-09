@@ -8,6 +8,10 @@
 #include <QRgb>
 #include <QFont>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 namespace QtTerm {
 
 QTerminalWidget::QTerminalWidget(QWidget* parent) 
@@ -21,8 +25,8 @@ QTerminalWidget::QTerminalWidget(QWidget* parent)
 {
     memset(&cfg, 0, sizeof(Config));
     memset(&ucsdata, 0, sizeof(unicode_data));
-  this->setMinimumWidth(10 * 80);
-  this->setMinimumHeight(19 * 25);
+    this->setMinimumWidth(10 * 80);
+    this->setMinimumHeight(19 * 25);
 
   this->textFont = new QFont("Courier", 12);
   //this->textFont->setStyleHint(QFont::Courier, QFont::NoAntialias);
@@ -75,5 +79,9 @@ void QTerminalWidget::paintEvent(QPaintEvent *event)
 		      this->string);
     painter->end();
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 };

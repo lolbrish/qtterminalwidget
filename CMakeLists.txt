@@ -1,29 +1,20 @@
 
 project(qtterm)
 cmake_minimum_required(VERSION 2.8)
-#find_package(Qt4 REQUIRED)
+find_package(Qt4 REQUIRED)
 find_package(PkgConfig)
 
-#include(${QT_USE_FILE})
+include(${QT_USE_FILE})
 
 # QtTerm
 SET(CMAKE_BUILD_TYPE Debug)
 
-#set(qtterm_sources
-#  src/Main.cpp
-#  src/pty/)
-
-#set(qtterm_moc_classes
-#  src/QTerminalWidget.h)
+set(qtterm_moc_classes
+  src/QTerminalWidget.h)
 
 set(pty_charset_headers
   src/pty/charset.h
   src/pty/internal.h)
-
-set(pty_unix_headers
-  src/pty/gtkcols.h
-  src/pty/gtkfont.h
-  src/pty/unix.h)
 
 set(pty_headers
   src/pty/int64.h
@@ -75,24 +66,29 @@ set(pty_shared_source
   src/pty/xpmpterm.c
   src/pty/new.c)
 
-set(pty_gtk_source
-  src/pty/gtkcols.c
-  src/pty/gtkfont.c
-  src/pty/gtkwin.c)
+set(pty_qt_sources
+  src/pty/qt.cpp
+)
 
-#QT_WRAP_CPP(qtterm qtterm_moc_files ${qtterm_moc_classes})
-#add_executable(qtterm ${qtterm_sources} ${qtterm_moc_files})
-#target_link_libraries(qtterm ${QT_LIBRARIES})
+set(qtterm_moc_classes
+    src/QTerminalWidget.h
+)
+
+set(qtterm_sources
+    src/QTerminalWidget.cpp
+)
+
+QT_WRAP_CPP(qtterm qtterm_moc_files ${qtterm_moc_classes})
 SET(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -Wall -Werror -D _FILE_OFFSET_BITS=64")
 SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall -Werror -D _FILE_OFFSET_BITS=64")
 
-FIND_PACKAGE(GTK2 COMPONENTS gtk)
-INCLUDE_DIRECTORIES(${GTK2_INCLUDE_DIRS})
-ADD_EXECUTABLE(gtkpterm 
+ADD_EXECUTABLE(qtterm 
   ${pty_charset_headers}
   ${pty_unix_headers}
   ${pty_headers} 
   ${pty_shared_source}
-  ${pty_gtk_source}
-  ${GTK2_LIBRARIES})
-TARGET_LINK_LIBRARIES(gtkpterm ${GTK2_LIBRARIES})
+  ${pty_qt_sources}
+  ${qtterm_sources}
+  ${qtterm_moc_files}
+)
+target_link_libraries(qtterm ${QT_LIBRARIES})

@@ -3,7 +3,7 @@
 #define QTerminalWidget_h
 
 #include <QWidget>
-#include "putty.h"
+#include "pty/putty.h"
 
 namespace QtTerm {
 
@@ -11,7 +11,7 @@ class QTerminalWidget : public QWidget {
     Q_OBJECT
 
 public:
-    QTerminalWidget(QWidget * parent = 0);
+    QTerminalWidget(QWidget* parent = 0);
     ~QTerminalWidget();
 
     Terminal* term;

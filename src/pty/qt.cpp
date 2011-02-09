@@ -8,16 +8,18 @@
 #include <assert.h>
 #include <signal.h>
 
+extern "C" {
+
 int from_backend(void *frontend, int is_stderr, const char *data, int len)
 {
     assert(0 == 1);
     return 0;
 }
 
-char *x_get_default(const char *key)
+char* x_get_default(const char *key)
 {
     assert(0 == 1);
-    return "";
+    return strdup("");
 }
 
 void free_ctx(Context ctx)
@@ -38,7 +40,7 @@ void set_sbar(void *frontend, int total, int start, int page)
 int pt_main(int argc, char **argv)
 {
     extern int cfgbox(Config *cfg);
-    QTerminalWidget* inst = new QtTerm::QTerminalWidget();
+    QtTerm::QTerminalWidget* inst = new QtTerm::QTerminalWidget();
 
     // defer any child exit handling until we're ready to deal with
     // it
@@ -303,4 +305,6 @@ FontSpec platform_default_fontspec(const char *name)
 void frontend_keypress(void *handle)
 {
     assert(0 == 1);
+}
+
 }

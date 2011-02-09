@@ -80,6 +80,10 @@ extern long tickcount_offset;
  */
 #define FLAG_STDERR_TTY 0x1000
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Things pty.c needs from pterm.c */
 char *get_x_display(void *frontend);
 int font_dimension(void *frontend, int which);/* 0 for width, 1 for height */
@@ -175,5 +179,10 @@ void *sk_getxdmdata(void *sock, int *lenp);
  * Exports from winser.c.
  */
 extern Backend serial_backend;
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif

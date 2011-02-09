@@ -27,6 +27,10 @@ typedef struct terminal_tag Terminal;
 #include "network.h"
 #include "misc.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Fingerprints of the PGP master keys that can be used to establish a trust
  * path between an executable and other files.
@@ -1235,4 +1239,9 @@ void expire_timer_context(void *ctx);
 int run_timers(long now, long *next);
 void timer_change_notify(long next);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif
+
